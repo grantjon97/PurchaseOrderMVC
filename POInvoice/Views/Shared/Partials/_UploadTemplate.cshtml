@@ -1,0 +1,33 @@
+﻿<template id="uploadInfo">
+    <h6><i class="text-cps-red">* Required fields:</i></h6>
+
+    <br />
+
+    <h4 style='margin-top:0px'>Total cost:<i class="text-cps-red"> *</i></h4>
+    <div class='input-group'>
+        <span class='input-group-addon'>$</span>
+        <input type='number' id='uploadTotal' class='form-control' placeholder='0.00' />
+    </div>
+
+    <h4>Account Number:<i class="text-cps-red"> *</i></h4>
+    <input type='text' id='uploadAccountNumber' class='form-control' placeholder='123456789' />
+
+    <h4>Vendor Name:<i class="text-cps-red"> *</i></h4>
+    <input type='text' id='uploadVendorName' class='typeahead form-control' placeholder='Name' />
+
+    <hr />
+    <h6><i class="text-cps-gray-dark">Optional fields:</i></h6>
+    <br />
+
+    <h4>PO # (if approved):</h4>
+    <input type='text' id='uploadPoNumber' class='form-control' placeholder='123456789' />
+
+    <h4>Responsible party:</h4>
+    <input type='text' id='uploadResponsibleParty' class='form-control' value="@POInvoice.Services.PoFormConversions.FormatUserName(System.Web.HttpContext.Current.User.Identity.Name)" />
+
+    <h4>Date form was submitted to LCMS:</h4>
+    <input type='text' class='form-control' data-calendar='true' autocomplete='off' id='submitDate' />
+
+    <h4>Expiration date:</h4>
+    <input type='text' class='form-control' data-calendar='true' autocomplete='off' id='expireDate' />
+</template>

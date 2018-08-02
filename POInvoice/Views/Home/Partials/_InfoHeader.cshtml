@@ -1,0 +1,47 @@
+﻿@model POInvoice.Data.Domain.PoForm
+
+@{ 
+    decimal grandTotal = POInvoice.Services.PoFormConversions.CalculateGrandTotal(Model);
+}
+
+<div>
+    @if (Model.Status == POInvoice.Data.Services.Status.Pending)
+    {
+        <span class="h2">
+            <span id="overviewHeader">@Model.Overview</span> - <span style="color:red">@Model.Status</span>
+            @Html.Partial("~/Views/Partials/_EditPoFormName.cshtml")
+        </span>
+        <button class="btn btn-cps-red pull-right" onclick="DeleteForm()"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete Form</button>
+        <hr />
+    }
+    else
+    {
+        <span class="h2">
+            <span id="overviewHeader">@Model.Overview</span> - <span style="color:forestgreen">@Model.Status</span>
+            @Html.Partial("~/Views/Partials/_EditPoFormName.cshtml")
+        </span>
+        <button class="btn btn-cps-red pull-right" onclick="DeleteForm()">Delete Form</button>
+
+        <hr />
+
+        <p><strong>Grand total: </strong>        @POInvoice.Services.PoFormConversions.FormatDollar(grandTotal)</p>
+        <p><strong>Vendor name: </strong>        @Model.Vendor.Name</p>
+        <P><strong>Purchase order #: </strong>   @Model.PoNumber</P>
+    }
+
+    @if (!Model.ResponsibleParty.IsEmpty())
+    {
+        <p><strong>Responsible party: </strong>@Model.ResponsibleParty</p>
+    }
+    @if (Model.SubmittedDate.HasValue)
+    {
+        <p><strong>Date Submitted to LCMS: </strong>@Model.SubmittedDate.Value.ToShortDateString()</p>
+    }
+    @if (Model.ExpirationDate.HasValue)
+    {
+        <p><strong>Expiration Date: </strong>@Model.ExpirationDate.Value.ToShortDateString()</p>
+    }
+
+    <hr />
+
+</div>

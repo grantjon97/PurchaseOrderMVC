@@ -1,0 +1,18 @@
+﻿@model POInvoice.Data.Domain.PoForm
+
+@if (Model.Status == POInvoice.Data.Services.Status.Pending)
+{
+    <script src="~/Scripts/bootstrap-toggle.js"></script>
+    <link href="~/Content/bootstrap-toggle.css" rel="stylesheet" />
+
+    <label>
+        <input type="checkbox" id="toggle" onchange="Toggle()" data-toggle="toggle">
+        Toggle edit
+    </label>
+
+    <div class="container" style="border-top:solid;border-top-width:3px;border-top-color:#5a7e95;margin-top:10px">
+        <fieldset id="fieldset" disabled>
+            @Html.Action("Index", "EditPo", new { Model.Id })
+        </fieldset>
+    </div>
+}

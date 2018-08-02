@@ -1,0 +1,13 @@
+﻿<p>
+    @if (Model.Status == POInvoice.Data.Services.Status.Pending)
+    {
+        <button type="button" class="btn btn-primary" onclick="UploadFinalizedPo()">
+            <i class="fa fa-check" aria-hidden="true"></i> Finalize PO
+        </button>
+    }
+
+    <button type="button" class="btn btn-success" onclick="DuplicatePo()">
+        <i class="fa fa-files-o" aria-hidden="true"></i> Duplicate PO
+    </button>
+
+</p>

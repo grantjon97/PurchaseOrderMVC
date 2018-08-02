@@ -1,0 +1,27 @@
+﻿@model POInvoice.Data.Domain.PoForm
+
+@{
+    Layout = "~/Views/Shared/Partials/_PoFormLayout.cshtml";
+    ViewBag.Title = "SaveStatus";
+}
+
+<h2 align="center">REQUISITION / PURCHASE ORDER</h2>
+
+@Html.Partial("~/Views/Home/Partials/_CompletePoUpperPanels.cshtml")
+
+@Html.Partial("~/Views/Home/Partials/_CompletePoTable.cshtml", Model.LineItems)
+
+
+@*
+    The following signature lines may seem lazy, but this is the easiest and
+    quickest way to line up signature lines and dates. Plus, we don't need any
+    of this information stored electronically, so there is no real use in creating
+    input boxes.
+*@
+<div style="position:relative;bottom:45px">
+    <p><strong>Requisitioned by: _____________________________________________ Date: ________________</strong></p>
+    <p><strong>Requisitioned by: _____________________________________________ Date: ________________</strong></p>
+    <p><strong>Requisitioned by: _____________________________________________ Date: ________________</strong></p>
+    <p><strong>Approval signature: ___________________________________________ Date: ________________</strong></p>
+    <p><strong>Purchasing agent approval: ___________________________________ Date: ________________</strong></p>
+</div>

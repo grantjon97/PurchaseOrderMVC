@@ -1,0 +1,32 @@
+﻿@model POInvoice.Data.Domain.PoForm
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@using (Html.BeginForm("Save", "Home", FormMethod.Post, new { @id = "form" }))
+{
+    @Html.Partial("~/Views/Home/Partials/_BootboxSaveInfo.cshtml")
+
+    @Html.HiddenFor(p => p.Id, new { @Value = Model.Id, @id = "id" })
+    @Html.HiddenFor(p => p.Overview, new { @id = "overview" })
+    @Html.HiddenFor(p => p.ResponsibleParty, new { @id = "responsibleParty" })
+    @Html.HiddenFor(p => p.ExpirationDate, new { @id = "expirationDate" })
+
+    <h2 align="center">REQUISITION / PURCHASE ORDER</h2>
+
+    @Html.Partial("~/Views/Partials/_UpperPanels.cshtml")
+
+    @Html.EditorFor(p => p.LineItems, "LineItem")
+
+    <button class="btn btn-success" onclick="Save()" type="button">
+        <i class="fa fa-check" aria-hidden="true"></i> Save
+    </button>
+}
+
+

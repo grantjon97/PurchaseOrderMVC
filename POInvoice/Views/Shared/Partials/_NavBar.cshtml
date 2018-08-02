@@ -1,0 +1,27 @@
+﻿<div class="navbar navbar-blue navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            @if (POInvoice.Data.Persistence.PoInvoice.Test == true)
+            {
+                @Html.ActionLink("PO Form Manager (test)", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            }
+            else
+            {
+                @Html.ActionLink("PO Form Manager", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            }
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="~/CreatePo"><i class="fa fa-file-o" aria-hidden="true"></i> Create Po</a></li>
+                <li><a onclick="InputSkeletonFormData()"><i class="fa fa-upload" aria-hidden="true"></i> Upload Po</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><div class="navbar-text"><i class="fa fa-user"></i> @User.Identity.Name</div></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@*<input hidden id="userName" value="@(POInvoice.Services.PoFormConversions.FormatUserName(System.Web.HttpContext.Current.User.Identity.Name))" />
+<script src="~/Scripts/CreateCalendars.js"></script>
+<script src="~/Scripts/UploadOldPo.js"></script>*@

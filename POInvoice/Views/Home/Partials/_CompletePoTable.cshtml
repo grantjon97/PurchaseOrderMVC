@@ -1,0 +1,52 @@
+﻿@model List<POInvoice.Data.Domain.LineItem>
+
+<div class="container" style="position:relative;bottom:60px">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <table class="table table-bordered table-hover" id="tab_logic">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Account Number</th>
+                        <th class="text-center">Item Description</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-center">Cost/Unit</th>
+                        <th class="text-center">Total Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td class="text-center">@(i + 1)</td>
+                            <td>@Model[i].AccountNumber</td>
+                            <td>@Model[i].Description</td>
+                            <td>@Model[i].Quantity</td>
+                            <td>@POInvoice.Services.PoFormConversions.FormatDollar(Model[i].UnitCost)</td>
+                            <td>@POInvoice.Services.PoFormConversions.FormatDollar(Model[i].Quantity * Model[i].UnitCost)</td>
+                        </tr>
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" class="text-right" style="border-left:hidden;border-bottom:hidden">
+                            <p style="font-weight:700">Grand Total:</p>
+                        </td>
+                        @{ 
+                            decimal grandTotal = 0.0m;
+                            foreach (var lineItem in Model)
+                            {
+                                grandTotal += (lineItem.Quantity * lineItem.UnitCost);
+                            }
+
+                            // Calculate the grand total live to verify that it is correct.
+                            <td><strong>@POInvoice.Services.PoFormConversions.FormatDollar(grandTotal)</strong></td>
+                        }
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

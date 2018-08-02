@@ -1,0 +1,23 @@
+﻿@model POInvoice.Data.Domain.PoForm
+
+<template id="saveInfo">
+
+    <h6><i class="text-cps-red">* Required fields:</i></h6>
+
+    <br />
+
+    <h4 style='margin-top:0px'>Description of Purchase Order:<i class="text-cps-red"> *</i></h4>
+    @Html.TextBoxFor(p => p.Overview, new { @class = "form-control", @id = "bootbox-saveOverview", @placeholder = "Description" })
+
+    <hr />
+    <h6><i class="text-cps-gray-dark">Optional fields:</i></h6>
+    <br />
+
+    <h4>Responsible party:</h4>
+    @Html.TextBoxFor(p => p.ResponsibleParty, new { @class = "form-control", @id = "bootbox-saveResponsibleParty", @placeholder = "Responsible Party",
+    @Value = Model.ResponsibleParty.IsEmpty() ? POInvoice.Services.PoFormConversions.FormatUserName(HttpContext.Current.User.Identity.Name) : Model.ResponsibleParty })
+
+    <h4>Expiration date:</h4>
+    @Html.TextBoxFor(p => p.ExpirationDate, "{0:yyyy-MM-ddTHH:mm:ss}", new { @id = "bootbox-saveExpirationDate", @class = "form-control", @placeholder = "Expiration Date", @type = "text", @autocomplete = "off" })
+
+</template>

@@ -1,0 +1,78 @@
+﻿@model POInvoice.Data.Domain.PoForm
+
+<script src="~/Scripts/vendorTypeAhead.js"></script>
+<script src="~/Scripts/CreateCalendars.js"></script>
+<link rel="stylesheet" href="~/Content/typeahead.css" />
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="panel panel-cps pull-left">
+                <div class="panel-body" style="height:270px">
+                    <h4>MAIL INVOICES TO:</h4>
+                    <p>Accounts Payable, Second Floor</p>
+                    <p>Concordia Plan Services</p>
+                    <p>1333 South Kirkwood Road</p>
+                    <p>St. Louis, MO 63122-7295</p>
+                    @Html.TextBoxFor(p => p.RequisitioningDepartment, new { @class = "po-panel-input form-control", @placeholder = "Requisitioning Department" })
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="panel panel-cps pull-left">
+                <div class="panel-body" style="height:270px">
+                    <h4>SHIP TO:</h4>
+                    <p>Concordia Plan Services</p>
+                    <p>1333 South Kirkwood Road</p>
+                    <p>St. Louis, MO 63122-7295</p>
+                    <h4 style="margin-bottom:0px">ATTN:</h4>
+                    @Html.TextBoxFor(p => p.Attn, new { @type = "text", @class = "form-control po-panel-input", @Value = "Accounts Payable" })
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="panel panel-cps pull-left">
+                <div class="panel-body" style="height:270px">
+                    <h4 style="margin-bottom:0px">SHIP VIA TERMS:</h4>
+                    @Html.TextBoxFor(p => p.ShipViaTerms, new { @type = "text", @class = "form-control po-panel-input", @Value = "Net 30" })
+                    <h4 style="margin-bottom:0px">DATE REQUIRED:</h4>
+                    @Html.TextBoxFor(p => p.DateRequired, "{0:yyyy-MM-ddTHH:mm:ss}", new { @class = "po-panel-input form-control", @placeholder = "Date Required", @type = "text", @data_calendar = "true", @autocomplete = "off" })
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="panel panel-cps pull-left">
+                <div class="panel-body" style="height:270px">
+                    <h4 style="margin-bottom:0px"><i class="fa fa-info-circle" id="vendorInfo" data-toggle="popover"></i> VENDOR INFO:</h4>
+                    @Html.TextBoxFor(p => p.Vendor.Name, new { @type = "text", @class = "typeahead form-control po-panel-input", @placeholder = "Vendor name", @id = "vendorName" })
+                    @Html.TextBoxFor(p => p.Vendor.Address, new { @type = "text", @class = "form-control po-panel-input", @placeholder = "Address" })
+                    @Html.TextBoxFor(p => p.Vendor.City, new { @type = "text", @style = "width:200px", @class = "form-control po-panel-input", @placeholder = "City" })
+                    @Html.Partial("~/Views/Partials/_StateDropDown.cshtml")
+                    @Html.TextBoxFor(p => p.Vendor.Zip, new { @type = "text", @style = "width:100px", @class = "form-control po-panel-input", @placeholder = "Zip Code" })
+                </div>
+            </div>
+        </div>
+        <div class="col pull-right">
+            <img src="~/Services/cps_logo_clear_2.png" width="250" />
+            <div class="panel panel-cps">
+                <div class="panel-body">
+                    <h4>Purchase Order #:</h4>
+                    @Html.TextBoxFor(p => p.PoNumber, new { @class = "form-control po-panel-input", @readonly = "readonly", @placeholder = "Do not fill out" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#vendorInfo").popover({
+            trigger: "hover",
+            placement: "top",
+            html: true,
+            title: "<strong class='text-cps-red'>WARNING</strong>",
+            content: "<p>If you select an existing vendor and change their information, " +
+                     "any PO form on this site with that vendor will also be changed.</p>"
+        });
+    });
+</script>

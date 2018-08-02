@@ -1,0 +1,25 @@
+﻿@model POInvoice.Data.Domain.PoForm
+
+<a style="color:black" onclick="editFormName()" class="h4">
+    <i class="fa fa-pencil fa-fw"></i>
+</a>
+
+<script>
+    function editFormName() {
+        bootbox.prompt("Enter a new name for the PO form:",
+            function (newOverview) {
+                if (newOverview) {
+                    $.ajax({
+                        url: "/api/Home/RenameForm?id=" + $("#id").val() +
+                            "&newOverview=" + newOverview,
+
+                        method: "PUT",
+                        success: function (result) {
+                            $("#overviewHeader").html(newOverview);
+                            toastr.success("Successfully renamed PO form.");
+                        }
+                    });
+                }
+            });
+    }
+</script>

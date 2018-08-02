@@ -1,0 +1,43 @@
+﻿@model List<POInvoice.ViewModels.PoFormSearchData>
+
+@{
+    ViewBag.Title = "Home Page";
+    // ViewBag.Year = year the user has selected
+}
+
+<input hidden id="userName" value="@POInvoice.Services.PoFormConversions.FormatUserName(HttpContext.Current.User.Identity.Name)" />
+
+<div class="panel-input panel-cps panel-primary" style="margin-top:50px;">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left">Purchase Order Forms</h3>
+        <div class="pull-right">
+            <div class="input-group input-group-sm">
+                <select class='selectpicker pull-left form-control' id="yearSelected" onchange='Filter()' style="position:relative;right:10px">
+                    @for (int i = DateTime.Today.Year - 5; i <= DateTime.Today.Year; i++)
+                    {
+                        if (i == ViewBag.Year)
+                        {
+                            <option selected="selected">@i</option>
+                        }
+                        else
+                        {
+                            <option>@i</option>
+                        }
+                    }
+                </select>
+                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                <input id="poForms-filter" type="text" class="form-control" placeholder="Search">
+            </div>
+        </div>
+    </div>
+
+    <div id="poForms_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer" style="width:inherit">
+        @Html.Partial("~/Views/Home/Partials/_IndexTable.cshtml")
+    </div>
+</div>
+
+<script>
+    function Filter() {
+        window.location.href = "/?yearSelected=" + $("#yearSelected").val();
+    }
+</script>

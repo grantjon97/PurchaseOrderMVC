@@ -1,0 +1,47 @@
+﻿@using CPS.Nova.Web.Services
+
+<!DOCTYPE html>
+
+<!-- Stylesheets -->
+<link href="http://cdn.wbp.org/1.0.0/styles/cps.all.min.css" rel="stylesheet">
+
+<!-- Scripts -->
+<script src="http://cdn.wbp.org/1.0.0/scripts/cps.scripts.min.js"></script>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="http://cdn.wbp.org/CPS-Images/lcms_cross.gif" />
+    <title>PO Form Manager</title>
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        body{
+            padding-top: 0.5in;
+        }
+
+        .panel {
+            box-shadow: none;
+            border: none;
+        }
+
+        .table {
+            width: 100%;
+        }
+
+        .table tr:nth-child(20n){
+            page-break-after: always;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

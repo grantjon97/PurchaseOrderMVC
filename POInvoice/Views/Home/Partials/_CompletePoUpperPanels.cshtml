@@ -1,0 +1,95 @@
+﻿@model POInvoice.Data.Domain.PoForm
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <img src="~/Services/cps_logo_clear_2.png" class="pull-left" width="300" />
+            <div class="panel panel-cps pull-right" style="height:auto;border-width:2px;border-color:darkslategrey">
+                <div class="panel-body">
+                    <h4>PURCHASE ORDER #:</h4>
+                    @if (!Model.PoNumber.IsEmpty())
+                    {
+                        <h3 style="margin:0px" class="pull-right"><strong>@Model.PoNumber</strong></h3>
+                    }
+                    else
+                    {
+                        <p style="position:relative;top:10px">______________________________________</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" style="position:relative;bottom:30px">
+    <div class="row">
+        <div class="col">
+            <div class="panel panel-cps pull-left">
+                <div class="panel-body">
+                    <h4>MAIL INVOICES TO:</h4>
+                    <p>Accounts Payable, Second Floor</p>
+                    <p>Concordia Plan Services</p>
+                    <p>1333 South Kirkwood Road</p>
+                    <p>St. Louis, MO 63122-7295</p>
+                    <p>@Model.RequisitioningDepartment</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="panel panel-cps pull-left">
+                <div class="panel-body">
+                    <h4>SHIP TO:</h4>
+                    <p>Concordia Plan Services</p>
+                    <p>1333 South Kirkwood Road</p>
+                    <p>St. Louis, MO 63122-7295</p>
+                    @if (!Model.Attn.IsEmpty())
+                    {
+                        <h4>ATTN:</h4>
+                        <p>@Model.Attn</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @if (!Model.ShipViaTerms.IsEmpty() || Model.DateRequired.HasValue)
+        {
+            <div class="col">
+                <div class="panel panel-cps pull-left">
+                    <div class="panel-body">
+                        @if (!Model.ShipViaTerms.IsEmpty())
+                        {
+                            <h4>SHIP VIA TERMS:</h4>
+                            <p>@Model.ShipViaTerms</p>
+                        }
+                        @if (Model.DateRequired.HasValue)
+                        {
+                            <h4>DATE REQUIRED:</h4>
+                            <p>@Model.DateRequired.Value.ToShortDateString()</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="col">
+            <div class="panel panel-cps pull-left">
+                <div class="panel-body">
+                    @if (!Model.Vendor.Name.IsEmpty() || !Model.Vendor.Address.IsEmpty())
+                    {
+                        <h4>VENDOR INFO:</h4>
+                        <p>@Model.Vendor.Name</p>
+                        <p>@Model.Vendor.Address</p>
+
+                        if (!Model.Vendor.City.IsEmpty() && !Model.Vendor.State.IsEmpty())
+                        {
+                            <p>@Model.Vendor.City, @Model.Vendor.State</p>
+                        }
+                        if (!Model.Vendor.Zip.IsEmpty())
+                        {
+                            <p>@Model.Vendor.Zip</p>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

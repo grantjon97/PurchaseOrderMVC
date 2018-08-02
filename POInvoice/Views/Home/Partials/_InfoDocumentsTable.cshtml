@@ -1,0 +1,58 @@
+﻿@model POInvoice.Data.Domain.PoForm
+
+@{ var width = "710px"; }
+
+<div class="panel-input panel-cps panel-primary" style="width:@width">
+
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left"><i class="fa fa-info-circle"></i> Purchase Order & Supporting Files</h3>
+        <button class="btn btn-sm btn-warning pull-right" onclick="AddSupportingDocs()">
+            <i class="fa fa-plus"></i> Add supporting documents
+        </button>
+    </div>
+
+    <table id="documentsTable" class="table table-bordered table-hover table-sm" style="table-layout:fixed;width:@width">
+
+        <colgroup>
+            <col style="width:50%" />
+            <col style="width:25%" />
+            <col style="width:15%" />
+            <col style="width:10%" />
+        </colgroup>
+
+        <thead>
+            <tr>
+                <th class="text-center">Filename</th>
+                <th class="text-center">Type of document</th>
+                <th class="text-center">Modified</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="Documents">
+            @for (int i = 0; i < Model.Documents.Count; i++)
+            {
+                var fp = Model.Documents[i].FilePath;
+                var linkName = Model.Documents[i].TypeOfDocument == POInvoice.Data.Services.TypeOfDocument.Po ?
+                    Model.Overview : Path.GetFileName(Model.Documents[i].FilePath);
+            
+                <tr>
+                    <td>@Html.ActionLink(linkName, "ViewPdf", "Home", new { filePath = fp }, new { @target = "_blank", @name = fp, @id = "file" + i, data_file = "true", @title=linkName })</td>
+
+                    @if (Model.Documents[i].TypeOfDocument == POInvoice.Data.Services.TypeOfDocument.Po)
+                    {
+                        <td class="text-cps-red">Purchase Order PDF</td>
+                    }
+                    else
+                    {
+                        <td>@Model.Documents[i].TypeOfDocument</td>
+                    }
+
+                    <td>@Model.Documents[i].Modified.ToShortDateString()</td>
+                    <td class="text-center"><button onclick="DeleteRow(this, @(Model.Documents[i].Id), @(Convert.ToInt32(Model.Documents[i].TypeOfDocument)))" class="btn" type="button" style="background-color:white"><i class="fa fa-trash-o text-cps-red" aria-hidden="true"></i></button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<hr />
